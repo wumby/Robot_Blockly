@@ -1,0 +1,174 @@
+<!--Nathan Bail
+Zachary Goldstein
+UND Computer Science Capstone
+Blockly Robot Simulator -->
+<!Clipart used for robot, public domain license>
+<!https://openclipart.org/detail/170101/cartoon-robot>
+
+
+<!Audio taken from free sounds>
+<!https://freesound.org/people/zut50/sounds/162395/ - victory sound>
+<!https://freesound.org/people/simon.rue/sounds/61847/ - boink sound>
+<!https://freesound.org/people/ryanlouis/sounds/366964/ - movement sound>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Robot Simulator</title>
+<script src="resources/blockly_compressed.js"></script>
+  <script src="resources/blocks_compressed.js"></script>
+  <script src="resources/javascript_compressed.js"></script>
+  <script src="resources/en.js"></script>
+  <script src="blocksPlayground.js"></script>
+  <style>
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 140%;
+    }
+	
+	.square {
+	height:100px;
+	width:100px;
+	border:black;
+	border-width:1px;
+	border-style:solid;
+	background-color: white;
+	position: absolute;}
+	
+	.outerwall{
+	height:700px;
+	width:800px;
+	border:black;
+	border-width:0px;
+	border-style:solid;
+	background-color: white;
+	position: absolute;}
+  </style>
+</head>
+<body>
+<h1><a href="https://developers.google.com/blockly/">Blockly</a> &gt;
+     &gt; Robot Simulator Playground</h1>
+
+  <p>
+	<button id="runBtn" onclick="runCode()">Run</button>
+  </p>
+
+  <table width="100%">
+    <tr>
+      <td>
+        <div id="masterDiv" style="height: 480px; width: 600px;"></div>
+      </td>
+    </tr>
+  </table>
+
+ <xml id="toolbox" style="display: none;">
+ 
+	<category name="Blocks">
+		<block type="rotate">
+			<field name="Turn">Right</field>
+		</block>
+		<block type="driveRobot">
+			<field name="Turn">Right</field>
+		</block>
+		<block type="slidesquare">
+			<field name="Slide">Right</field>
+		</block>
+	</category>	
+  </xml>
+  <h1 style="top:800px">Try out <a href="index1.html">Maze 1</a> or <a href="index2.html">Maze 2</a>!</h1>
+
+  <div class="outerwall" id="outwall" style="left:710px;top:10px;background-image:url('images/outerwall.png')"></div>
+  
+  <!row 1>    
+  <div class="square" id="s0" style="left:760px;top:60px;background-image:url('images/robotRight.png')"></div>
+  <div class="square" id="s1" style="left:860px;top:60px;"></div>
+  <div class="square" id="s2" style="left:960px;top:60px;"></div>
+  <div class="square" id="s3" style="left:1060px;top:60px;"></div>
+  <div class="square" id="s4" style="left:1160px;top:60px;"></div>
+  <div class="square" id="s5" style="left:1260px;top:60px;"></div>
+  <div class="square" id="s6" style="left:1360px;top:60px;"></div>
+  
+  <!row2>
+  
+  <div class="square" id="s7" style="left:760px;top:160px;"></div>
+  <div class="square" id="s8" style="left:860px;top:160px;"></div>
+  <div class="square" id="s9" style="left:960px;top:160px;"></div>
+  <div class="square" id="s10" style="left:1060px;top:160px;"></div>
+  <div class="square" id="s11" style="left:1160px;top:160px;"></div>
+  <div class="square" id="s12" style="left:1260px;top:160px;"></div>
+  <div class="square" id="s13" style="left:1360px;top:160px;"></div>
+  
+  <!row3>
+  
+  <div class="square" id="s14" style="left:760px;top:260px;"></div>
+  <div class="square" id="s15" style="left:860px;top:260px;"></div>
+  <div class="square" id="s16" style="left:960px;top:260px;"></div>
+  <div class="square" id="s17" style="left:1060px;top:260px;"></div>
+  <div class="square" id="s18" style="left:1160px;top:260px;"></div>
+  <div class="square" id="s19" style="left:1260px;top:260px;"></div>
+  <div class="square" id="s20" style="left:1360px;top:260px;"></div>
+  
+  <!row4>
+   
+  <div class="square" id="s21" style="left:760px;top:360px;"></div>
+  <div class="square" id="s22" style="left:860px;top:360px;"></div>
+  <div class="square" id="s23" style="left:960px;top:360px;"></div>
+  <div class="square" id="s24" style="left:1060px;top:360px;"></div>
+  <div class="square" id="s25" style="left:1160px;top:360px;"></div>
+  <div class="square" id="s26" style="left:1260px;top:360px;"></div>
+  <div class="square" id="s27" style="left:1360px;top:360px;"></div>
+
+  <!row4>
+
+  <div class="square" id="s28" style="left:760px;top:460px;"></div>
+  <div class="square" id="s29" style="left:860px;top:460px;"></div>
+  <div class="square" id="s30" style="left:960px;top:460px;"></div>
+  <div class="square" id="s31" style="left:1060px;top:460px;"></div>
+  <div class="square" id="s32" style="left:1160px;top:460px;"></div>
+  <div class="square" id="s33" style="left:1260px;top:460px;"></div>
+  <div class="square" id="s34" style="left:1360px;top:460px;"></div>
+  
+  <!row5>
+
+  <div class="square" id="s35" style="left:760px;top:560px;"></div>
+  <div class="square" id="s36" style="left:860px;top:560px;"></div>
+  <div class="square" id="s37" style="left:960px;top:560px;"></div>
+  <div class="square" id="s38" style="left:1060px;top:560px;"></div>
+  <div class="square" id="s39" style="left:1160px;top:560px;"></div>
+  <div class="square" id="s40" style="left:1260px;top:560px;"></div>
+  <div class="square" id="s41" style="left:1360px;top:560px;"></div>
+ 
+  
+  
+
+<form>
+	<label style="left:500;top:1000" id=lbl1 text="aasdf"></label>
+</form>
+  <script>
+    var workspace = Blockly.inject('masterDiv', {
+      media: 'resources/media/',
+      toolbox: document.getElementById('toolbox')
+    });
+	
+	function runCode(){
+	
+		window.LoopTrap = 1000;
+		Blockly.JavaScript.INFINITE_LOOP_TRAP = 
+			'if (window.LoopTrap == 0) throw "Infinite loop.";\n';
+		var code = Blockly.JavaScript.workspaceToCode(workspace);
+		//runBtn.innerHTML = code;
+		Blockly.JavaScript.INFINITE_LOOP_TRAP = null;
+		try {
+			eval(code);
+		} catch (e) {
+			alert(e);
+		}
+	}
+
+  </script>
+</body>
+</html>
